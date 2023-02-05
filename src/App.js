@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+import Tutorial from "./components/Tutorial";
+import GlobalStyle from "./components/styles/Global.styles";
+import { ThemeProvider } from "styled-components";
+
+export default class App extends React.Component {
+  state = {
+    themeColor: "dark",
+  };
+  themeSwitch = () => {
+    const dark = this.state.themeColor;
+    if (dark === "dark") {
+      this.setState({
+        themeColor: "light",
+      });
+    } else {
+      this.setState({
+        themeColor: "dark",
+      });
+    }
+  };
+  render() {
+    return (
+      <>
+        <GlobalStyle />
+        <ThemeProvider
+          theme={{
+            background: this.state.themeColor,
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          <Tutorial switchTheme={this.themeSwitch} />
+        </ThemeProvider>
+      </>
+    );
+  }
 }
-
-export default App;
